@@ -1,0 +1,10 @@
+
+{
+    "_id" : ObjectId("5e27f397ec15010b6a4ba141"),
+    "Id" : 0,
+    "name" : "湖北省",
+    "updateTime" : "2020-01-22 15:02",
+    "description" : "湖北省 确诊 270 例，疑似 11 例，治愈 25 例，死亡 9 例",
+    "type" : "确诊",
+    "quantity" : 270
+}
