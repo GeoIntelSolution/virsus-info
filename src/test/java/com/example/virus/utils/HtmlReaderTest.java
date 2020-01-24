@@ -32,40 +32,55 @@ public class HtmlReaderTest {
         //use jsoup 获取
         Document document = Jsoup.connect("https://3g.dxy.cn/newh5/view/pneumonia").get();
         System.out.println(document.title());
-        Elements dt = document.select(".mapTitle___2QtRg");
-//        TaskInfo taskInfo =new TaskInfo()
-        String name="";
-        for (Element element : dt) {
+
+        Elements title = document.select(".mapTitle___2QtRg");
+        String date="";
+        for (Element element : title) {
             System.out.println(element.html());
             String html = element.html();
             String[] strings = html.split(" ");
             System.out.println(String.format("%s %s", strings[1],strings[2]));
             //if it's not latest data,don't update
-            name=String.format("%s %s", strings[1],strings[2]);
+            date=String.format("%s %s", strings[1],strings[2]);
+        }
+
+        Elements dt = document.select(".areaBlock1___3V3UU");
+//        TaskInfo taskInfo =new TaskInfo()
+        List<Event> eventList=new ArrayList<>();
+
+        String name="";
+        for (Element element : dt) {
+            if(element==dt.get(0)){
+                continue;//skip first row
+            }
+//            System.out.println(element.html());
+            Elements p = element.select("p");
+            Event event =new Event();
+            event.setUpdateTime(date);
+
+            Element province = p.get(0);
+            name=province.html();
+            int i = name.indexOf(">");
+            if(i!=-1){
+                name=name.substring(i+1,name.length());
+                System.out.println(name);
+                event.setName(name);
+                event.setType("确诊");
+            }
+
+            Element data = p.get(1);
+            Integer integer = Integer.valueOf(data.html());
+            event.setQuantity(integer);
+
+            event.setDescription(String.format("发现 %s 有确诊 %d 病人", event.getName(),event.getQuantity()));
+            eventList.add(event);
+
         }
 
         //获取消息
 
-        Elements details = document.select(".descList___3iOuI");
-        List<Event> eventList=new ArrayList<>();
-        for (Element detail : details) {
-            Event event =new Event();
-            event.setUpdateTime(name);
-            for (Element child : detail.children()) {
-//                System.out.println(child.html());
-                String childText = child.html();
-                int i = childText.indexOf("</i>");
-                if(i==-1) continue;
-                String text = childText.substring(i+4, childText.length());
-                System.out.println(text);
-                String[] s = text.split(" ");
-                event.setName(s[0]);
-                event.setType(s[1]);
-                event.setQuantity(Integer.valueOf(s[2]));
-                event.setDescription(text);
-                eventList.add(event);
-            }
-        }
+
+
         //create geojson
 
         eventList.forEach(event -> {
