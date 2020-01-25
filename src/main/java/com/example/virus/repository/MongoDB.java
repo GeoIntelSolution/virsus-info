@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @EnableMongoRepositories
 public interface MongoDB {
     void persistEvents(List<Event> events);
+    void persistCityEvents(List<Event> events);
     List<Event> fetchEventByTime();
     String findLastRecentDate();
     void setLastTime(String lastTime);

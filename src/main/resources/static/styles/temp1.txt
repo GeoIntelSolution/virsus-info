@@ -1,0 +1,21 @@
+{
+	"id": "virus-city",
+	"type": "fill",
+	"source": "安徽",
+	"minzoom": 6.4,
+	"layout": {
+		"visibility": "visible"
+	},
+	"paint": {
+		"fill-color": {
+			"property": "quantity",
+			"stops": [
+				[1, "#ffffb2"],
+				[10, "#fd8d3c"],
+				[50, "#fc4e2a"],
+				[100, "#b10026"]
+			]
+		},
+		"fill-outline-color": "#131313"
+	}
+}

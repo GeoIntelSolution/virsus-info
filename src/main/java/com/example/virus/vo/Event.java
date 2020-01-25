@@ -10,6 +10,34 @@ public class Event {
     String shapeId;
     String type;
     int quantity;
+    int possible;
+    int death;
+    String provinceName;
+
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public int getPossible() {
+        return possible;
+    }
+
+    public void setPossible(int possible) {
+        this.possible = possible;
+    }
+
+    public int getDeath() {
+        return death;
+    }
+
+    public void setDeath(int death) {
+        this.death = death;
+    }
 
     public int getQuantity() {
         return quantity;

@@ -35,6 +35,14 @@ public class MongoDBImpl implements MongoDB {
     }
 
     @Override
+    public void persistCityEvents(List<Event> events) {
+//        mongoTemplate.insert(events);
+        if(events==null||events.size()==0) return;
+        lastTime=events.get(0).getUpdateTime();
+        mongoTemplate.insert(events,"cityEvent");
+    }
+
+    @Override
     public List<Event> fetchEventByTime() {
         return null;
     }

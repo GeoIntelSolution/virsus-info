@@ -1,0 +1,10 @@
+{
+    "_id" : ObjectId("5e2b25ab8fdbad7fb5389aa1"),
+    "Id" : 0,
+    "name" : "武汉",
+    "description" : "2020-01-25 00:03（北京时间）数据统计 发现 武汉 有确诊 495 位病人,死亡 23 例,治愈 31 例",
+    "type" : "确症",
+    "quantity" : 495,
+    "possible" : 31,
+    "death" : 23
+}

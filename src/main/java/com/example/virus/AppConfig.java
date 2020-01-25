@@ -13,6 +13,7 @@ public class AppConfig {
     public static String jsonPath;
     public static dto dto=null;
 
+
     public static dto getDTO(){
         if(dto==null){
             try {
