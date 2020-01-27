@@ -8,16 +8,15 @@ import com.example.virus.vo.dto;
 import com.example.virus.vo.feature.Feature;
 import com.example.virus.vo.feature.Geometry;
 import com.google.gson.Gson;
-import java.util.List;
+
+import java.util.*;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -259,6 +258,12 @@ public class GeoJsonUtilTest {
             e.printStackTrace();
         }
 
+
+    }
+
+
+    @Test
+    public void testSet(){
 
     }
 }

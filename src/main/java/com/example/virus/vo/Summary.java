@@ -1,4 +1,6 @@
 package com.example.virus.vo;
 
-public class Summary {
+import java.util.ArrayList;
+
+public class Summary extends ArrayList<NewSummary> {
 }

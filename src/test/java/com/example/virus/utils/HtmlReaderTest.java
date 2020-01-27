@@ -6,6 +6,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.host.MouseEvent;
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -96,6 +97,22 @@ public class HtmlReaderTest {
         });
 
 
+
+    }
+
+
+    @Test
+    public void readHtmlScript() throws IOException {
+        Document document1 = Jsoup.connect("https://3g.dxy.cn/newh5/view/pneumonia").get();
+        Element getListByCountryTypeService1 = document1.getElementById("getListByCountryTypeService1");
+        String block = getListByCountryTypeService1.html();
+        int istart = getListByCountryTypeService1.html().indexOf('[');
+        int iend = getListByCountryTypeService1.html().lastIndexOf(']');
+        String content = block.substring(istart, iend + 1);
+        System.out.println(content);
+
+        Summary newSummaries = new Gson().fromJson(content, Summary.class);
+        System.out.println(newSummaries.size());
 
     }
 
@@ -226,6 +243,23 @@ public class HtmlReaderTest {
         handleData(date,document,".expand___wz_07",events);
 
         handleData(date,document,".fold___xVOZX",events);
+
+
+
+    }
+
+    @Test
+    public void testReadCityData() throws IOException{
+        Document document1 = Jsoup.connect("https://3g.dxy.cn/newh5/view/pneumonia").get();
+        Element getListByCountryTypeService1 = document1.getElementById("getAreaStat");
+        String block = getListByCountryTypeService1.html();
+        int istart = getListByCountryTypeService1.html().indexOf('[');
+        int iend = getListByCountryTypeService1.html().lastIndexOf(']');
+        String content = block.substring(istart, iend + 1);
+        System.out.println(content);
+
+        Summary newSummaries = new Gson().fromJson(content, Summary.class);
+        System.out.println(newSummaries.size());
 
 
 

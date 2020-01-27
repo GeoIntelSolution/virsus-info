@@ -2,6 +2,8 @@ package com.example.virus.utils;
 
 import com.example.virus.AppConfig;
 import com.example.virus.vo.Event;
+import com.example.virus.vo.NewSummary;
+import com.example.virus.vo.Summary;
 import com.example.virus.vo.dto;
 import com.example.virus.vo.feature.*;
 import com.google.gson.Gson;
@@ -30,6 +32,47 @@ public class GeoJsonUtil {
         }
 
         return nameWithoutSuffix;
+    }
+
+
+    public static Feature ConvertEvent2Feature3(NewSummary event,String date){
+        System.out.println(event.getProvinceShortName());
+        String nameWithoutSuffix=null;
+        nameWithoutSuffix=event.getProvinceShortName();
+        Feature result =new Feature();
+        Map<String,Object> props =new HashMap<>();
+        props.put("name",nameWithoutSuffix);
+        props.put("updateTime",date);
+        String desc=String.format("%s 发现 %s 有确诊 %d 位病人,死亡 %d 例,治愈 %d 例,疑似 %d 例",
+                date,
+                event.getProvinceName(),
+                event.getConfirmedCount(),
+                event.getDeadCount(),
+                event.getCuredCount(),
+                event.getSuspectedCount()
+        );
+
+        props.put("description",desc);
+        props.put("quantity",event.getConfirmedCount());
+        props.put("death",event.getDeadCount());
+        props.put("possible",event.getSuspectedCount());
+        result.setProperties(props);
+
+        Map<String, String> data = AppConfig.getDTO().getData();
+        String  shapeString= data.get(nameWithoutSuffix);
+        Geometry geometry =null;
+        if(shapeString.contains("MultiPolygon")){
+            geometry=new Gson().fromJson(shapeString, MultiPolygon.class);
+        }else   if (shapeString.contains("Polygon")) {
+            geometry=new Gson().fromJson(shapeString, Polygon.class);
+        }
+
+        if(geometry!=null){
+            result.setGeometry(geometry);
+            return result;
+        }else{
+            throw  new RuntimeException(nameWithoutSuffix+"has no geometry data");
+        }
     }
 
     public static Feature ConvertEvent2Feature2(Event event){
@@ -187,6 +230,14 @@ public class GeoJsonUtil {
         }
 
 
+    }
+
+    public static FeatureCollection ConvertEvent2Feature3(List<NewSummary> summaries,String date){
+        FeatureCollection featureCollection =new FeatureCollection();
+        summaries.forEach(event -> {
+            featureCollection.addFeature(GeoJsonUtil.ConvertEvent2Feature3(event,date));
+        });
+        return featureCollection;
     }
 
     public static FeatureCollection ConvertEvent2Feature(List<Event> events){

@@ -1,6 +1,7 @@
 package com.example.virus.repository;
 
 import com.example.virus.vo.Event;
+import com.example.virus.vo.NewSummary;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -12,10 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
-@Repository
-@EnableMongoRepositories
+//@Repository
+//@EnableMongoRepositories
 public class MongoDBImpl implements MongoDB {
     private static String lastTime ="";
+
 
 
     @Override
@@ -34,12 +36,28 @@ public class MongoDBImpl implements MongoDB {
           mongoTemplate.insert(events,"events");
     }
 
+
+    @Override
+    public void persistEvents2(List<NewSummary> events) {
+        if(events==null||events.size()==0) return;
+        lastTime=events.get(0).getModifyTime()+"";
+        mongoTemplate.insert(events,"summary");
+    }
+
     @Override
     public void persistCityEvents(List<Event> events) {
 //        mongoTemplate.insert(events);
         if(events==null||events.size()==0) return;
         lastTime=events.get(0).getUpdateTime();
         mongoTemplate.insert(events,"cityEvent");
+    }
+
+
+    @Override
+    public void persistCityEvents2(List<NewSummary> events) {
+        if(events==null||events.size()==0) return;
+        lastTime=events.get(0).getModifyTime()+"";
+        mongoTemplate.insert(events,"citySummary");
     }
 
     @Override

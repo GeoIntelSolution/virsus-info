@@ -1,34 +1,8 @@
-福建 com.example.virus.vo.feature.MultiPolygon@22555ebf
-台湾 com.example.virus.vo.feature.MultiPolygon@36ebc363
-河北 com.example.virus.vo.feature.MultiPolygon@45752059
-河南 com.example.virus.vo.feature.Polygon@34e9fd99
-安徽|安徽 com.example.virus.vo.feature.Polygon@3c41ed1d
-湖北 com.example.virus.vo.feature.Polygon@54d9d12d
-湖南 com.example.virus.vo.feature.Polygon@38425407
-海南 com.example.virus.vo.feature.MultiPolygon@43bc63a3
-江西 com.example.virus.vo.feature.Polygon@702657cc
-寧夏回族自治區|宁夏回族自治区 com.example.virus.vo.feature.Polygon@6a6cb05c
-新疆維吾爾自治區|新疆维吾尔自治区 com.example.virus.vo.feature.Polygon@40a4337a
-重慶|重庆 com.example.virus.vo.feature.Polygon@6025e1b6
-甘肅|甘肃 com.example.virus.vo.feature.Polygon@22ff4249
-上海|上海 com.example.virus.vo.feature.MultiPolygon@2d1ef81a
-西藏自治區|西藏自治区 com.example.virus.vo.feature.Polygon@4c402120
-雲南|云南 com.example.virus.vo.feature.Polygon@327514f
-貴州|贵州 com.example.virus.vo.feature.MultiPolygon@5b12b668
-山東|山东 com.example.virus.vo.feature.MultiPolygon@1165b38
-澳门 com.example.virus.vo.feature.MultiPolygon@4c12331b
-廣西壯族自治區|广西壮族自治区 com.example.virus.vo.feature.MultiPolygon@7586beff
-黑龙江省|黑龍江省 com.example.virus.vo.feature.Polygon@3b69e7d1
-吉林 com.example.virus.vo.feature.Polygon@815b41f
-江蘇|江苏 com.example.virus.vo.feature.MultiPolygon@5542c4ed
-山西 com.example.virus.vo.feature.Polygon@1573f9fc
-香港 com.example.virus.vo.feature.MultiPolygon@6150c3ec
-四川 com.example.virus.vo.feature.Polygon@44c03695
-天津|天津 com.example.virus.vo.feature.Polygon@7e6f74c
-浙江 com.example.virus.vo.feature.MultiPolygon@dd05255
-北京|北京 com.example.virus.vo.feature.Polygon@6a78afa0
-遼寧|辽宁 com.example.virus.vo.feature.MultiPolygon@2f4948e4
-內蒙古自治區|内蒙古自治区 com.example.virus.vo.feature.MultiPolygon@1f2586d6
-青海 com.example.virus.vo.feature.Polygon@10683d9d
-廣東|广东 com.example.virus.vo.feature.MultiPolygon@3fc2959f
-陝西|陕西 com.example.virus.vo.feature.Polygon@5aa9e4eb
+firewall-cmd --zone=public --add-port=8083/tcp --permanent
+firewall-cmd --zone=public --add-service=http --permanent
+firewall-cmd --reload
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+
+iptables -A INPUT -p tcp --dport 8083 -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 8083 -j ACCEPT
